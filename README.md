@@ -1,9 +1,11 @@
+
+# on-http [![Build Status](https://travis-ci.org/heckj/on-http.svg?branch=master)](https://travis-ci.org/heckj/on-http) [![Code Climate](https://codeclimate.com/github/RackHD/on-http/badges/gpa.svg)](https://codeclimate.com/github/RackHD/on-http) [![Coverage Status](https://coveralls.io/repos/RackHD/on-http/badge.svg?branch=master&service=github)](https://coveralls.io/github/RackHD/on-http?branch=master)
+
+
 Copyright 2015, EMC, Inc.
 
-# on-http
-
-
-Monorail HTTP Server
+`on-http` provides an HTTP Server to source both northbound and southbound APIs for RackHD, providing the API layer to the RackHD services as well as interactions with microkernel and the taskgraph (workflow engine) to enable
+events and dynamic responses.
 
 ## installation
 
@@ -17,7 +19,7 @@ Monorail HTTP Server
 Note: requires MongoDB and RabbitMQ to be running to start correctly.
 
     sudo node index.js
-    
+
 ## config
 
 the fileService requires a "fileService" key which holds keys mapping backend
