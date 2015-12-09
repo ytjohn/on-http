@@ -12,5 +12,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  nodejs-legacy,
  npm,
  mongodb
+Build-Depends: libkrb5-dev
 Description: on-http
  monorail http engine
