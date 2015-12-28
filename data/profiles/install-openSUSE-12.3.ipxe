@@ -1,3 +1,4 @@
+# FIXME: Not debugged
 echo Starting openSUSE 12.3 x64 installer >
 set base-url http://<%=server%>:<%=port%>/suse/distribution/12.3/repo/oss
 set params linux ifcfg=*=dhcp4 install=${base-url} autoyast=http://<%=server%>:<%=port%>/api/common/templates/autoinst_12.3.xml

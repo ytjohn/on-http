@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE profile>
+<!-- FIXME: This is setup for OpenSuSE. Caspian is using SLES 12 -->
 <profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
   <add-on>
     <add_on_products config:type="list">

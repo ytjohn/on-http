@@ -399,7 +399,7 @@
     <languages/>
   </language>
   <login_settings/>
-<!-- FIXME: Need to parameterize -->
+<!-- FIXME: Need to parameterize networking -->
  <networking>
     <keep_install_network config:type="boolean">true</keep_install_network>
     <dns>
@@ -571,7 +571,7 @@
     <umask>022</umask>
   </user_defaults>
   <users config:type="list">
-    <!-- FIXME: Need to parameterize -->
+    <!-- FIXME: Need to parameterize users -->
     <user>
       <encrypted config:type="boolean">true</encrypted>
       <fullname><%=username%></fullname>
@@ -860,7 +860,7 @@
       <user_password>!</user_password>
       <username>messagebus</username>
     </user>
-    <!-- FIXME: Need to parameterize -->
+    <!-- FIXME: Need to parameterize root password-->
     <user>
       <encrypted config:type="boolean">true</encrypted>
       <fullname>root</fullname>
