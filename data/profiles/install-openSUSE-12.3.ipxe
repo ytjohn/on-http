@@ -1,0 +1,9 @@
+# FIXME: Not debugged
+echo Starting openSUSE 12.3 x64 installer >
+set base-url http://<%=server%>:<%=port%>/suse/distribution/12.3/repo/oss
+set params linux ifcfg=*=dhcp4 install=${base-url} autoyast=http://<%=server%>:<%=port%>/api/common/templates/autoinst_12.3.xml
+kernel ${base-url}/boot/x86_64/loader/linux
+initrd ${base-url}/boot/x86_64/loader/initrd
+imgargs linux ${params}
+boot || prompt --key 0x197e --timeout 2000 Press F12 to investigate || exit shell
+

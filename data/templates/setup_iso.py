@@ -40,7 +40,7 @@ def do_setup_repo(osname, osver, src, dest, link):
     if osname is 'ESXi':
         shutil.copytree(src, dstpath)
 
-    if osname is 'RHEL' or osname is 'Centos':
+    if osname is 'RHEL' or osname is 'Centos' or osname is 'SuSE':
         shutil.copytree(src, dstpath)
 
     if osname is 'LiveCD':
@@ -109,6 +109,14 @@ def determine_os_ver(srcdir, iso_info):
         elif "RPM-GPG-KEY-CentOS-Testing-7" in list:
             osname = "Centos"
             osver = '7.0'
+        # FIXME: Is this the correct way to determine the version of SuSE?
+        elif "openSUSE-release-12.3-1.7.x86_64.rpm" in list:
+            osname = "SuSE"
+            osver = '12.3'
+        # FIXME: Is this the correct way to determine the version of SuSE?
+        elif "openSUSE-release-13.2-1.28.x86_64.rpm" in list:
+            osname = "SuSE"
+            osver = '13.2'
         elif 'LiveOS' and 'isolinux' in list:
             print 'attempting LiveCD netboot'
             osname = 'LiveCD'
