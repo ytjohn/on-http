@@ -17,29 +17,18 @@ addons:
       - debhelper
       - git
       - default-jdk
+      - maven
 
 services:
  - mongodb
  - rabbitmq
 
 after_success:
- - ./node_modules/.bin/istanbul cover -x "**/spec/**" ./node_modules/.bin/_mocha --report lcovonly -- $(find spec -name '*-spec.js') -R spec --require spec/helper.js
- - cat ./coverage/lcov.info | node_modules/.bin/coveralls
+ - ./extra/make-testcoveralls.sh
 
 before_deploy:
- - npm run apidoc
- - npm prune --production
- - sudo apt-get install -y maven
- - git clone --branch v2.1.5 https://github.com/swagger-api/swagger-codegen.git
- - pushd ./swagger-codegen && mvn package && popd
- - java -jar ./swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i static/monorail.yml -o on-http-api1.1 -l python --additional-properties packageName=on_http_api1_1
- - java -jar ./swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i static/monorail-2.0.yaml -o on-http-api2.0 -l python --additional-properties packageName=on_http_api2_0
- - java -jar ./swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i static/redfish.yaml -o on-http-redfish-1.0 -l python --additional-properties packageName=on_http_redfish_1_0
- - ./build-package.bash python-client "${TRAVIS_BRANCH}" "on-http-api1.1"
- - ./build-package.bash python-client "${TRAVIS_BRANCH}" "on-http-api2.0"
- - ./build-package.bash python-client "${TRAVIS_BRANCH}" "on-http-redfish-1.0"
- - ./build-package.bash on-http "${TRAVIS_BRANCH}"
- - mkdir deb && cp -a *.deb deb/
+ - ./extra/make-doc.sh
+ - ./extra/make-deb.sh
 
 deploy:
   provider: bintray
@@ -47,13 +36,6 @@ deploy:
   user: $BINTRAY_USER
   key: $BINTRAY_KEY
   on:
-    branch: master
+    branch: travisfun 
     node: "0.10"
 
-notifications:
-  slack:
-    rooms:
-    - secure: "To+wzqZY08JbqPDmOOopq79ImusMSEcFz7OX9msVwVndkzBf7LvKoEOz+LW5Z1YyAwTV/qZPAWQwTvV6YnL0vVcLygSQCJcvoMOM3MeKDBR9CDUqklagCvR51J0bnEiJpekZ6lgpThozxO7mqJ9/fuXdVNHPBRlY7QEBTD77LBIgXWwPbqMSNZ2L3ry3KEXwheU7lQOUnnuch+JUMnWqvj3murFP72xjLbGCgpcyBRY3kYSBraOL7R9rhR2A6JGWtTqpq4vUHfPofEfaQtxHHYfqTUfsMCDnRLge9HxzNM3wEMrwAr43yfHHzJoZUqPCP5Cz1c6CI6FVPQrKGtI7bF+z7qws4oHrXBIq7lFfR/5KOrq3H4PT0Mh0uaOfkT5eGp7mGCeNxQwOVUUt25l8dOUX6QSR/bRePikefSlWVkcZNYXfoYm+7YXz6jn1q5fumjZKOKMOLQlgDy4Ym/boxO1XOyvDiakCCMm6W3UUWahp8IQtgL4N8gP//9rPIdQmTmaPUuWrGODu5TQMUlwmMvAEUFP7TFUYd0ru9WIN7gi2HwjLPHWe4NxjUVgsf+Kctg0XYPdFp705yJaOlwGYi57moDa2h193J9RADjDLgKKojfTGvaKKEKGQO3NG8bfpjBQ6AmGZiDp1sSoBy4Y5LMUHE1mS4AgAjH5LwdOxBUU="
-    on_success: never
-    on_failure: always
-    on_start: never
