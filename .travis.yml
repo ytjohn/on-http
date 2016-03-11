@@ -27,7 +27,7 @@ after_success:
  - ./extra/make-testcoveralls.sh
 
 before_deploy:
- - ./extra/make-doc.sh
+ - ./extra/make-docs.sh
  - ./extra/make-deb.sh
 
 deploy:
