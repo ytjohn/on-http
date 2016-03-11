@@ -11,6 +11,7 @@ fi
 BRANCH=$(git symbolic-ref --short -q HEAD)
 
 npm prune --production
+git clone --branch v2.1.5 https://github.com/swagger-api/swagger-codegen.git
 pushd ./swagger-codegen && mvn package && popd
 java -jar ./swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i static/monorail.yml \ 
   -o on-http-api1.1 -l python --additional-properties packageName=on_http_api1_1
