@@ -1,12 +1,8 @@
 #!/bin/bash
 
-CURRENT=`pwd`
-BASENAME=`basename "$CURRENT"`
-if [ "$BASENAME" != "on-http" ]
-then
-   echo "Must run from on-http"
-   exit 1
-fi
+# Ensure we're always in the right directory.
+SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
+cd $SCRIPT_DIR/..
 
 BRANCH=$(git symbolic-ref --short -q HEAD)
 
@@ -22,4 +18,5 @@ java -jar ./swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-c
 ./build-package.bash python-client "${BRANCH}" "on-http-api2.0"
 ./build-package.bash python-client "${BRANCH}" "on-http-redfish-1.0"
 ./build-package.bash on-http "${BRANCH}"
+if [ -d deb ]; then rm -rf deb/; fi
 mkdir deb && cp -a *.deb deb/

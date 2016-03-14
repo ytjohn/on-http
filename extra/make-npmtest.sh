@@ -1,11 +1,7 @@
 #!/bin/bash
 
-CURRENT=`pwd`
-BASENAME=`basename "$CURRENT"`
-if [ "$BASENAME" != "on-http" ]
-then
-   echo "Must run from on-http"
-   exit 1
-fi
+# Ensure we're always in the right directory.
+SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
+cd $SCRIPT_DIR/..
 
 npm test
